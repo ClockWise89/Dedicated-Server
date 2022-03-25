@@ -6,7 +6,7 @@ namespace DedicatedServer.Util
 {   public class Logger
     {
         private StreamWriter writer;
-        private Level defaultLogLevel = Level.Verbose;
+        private Level defaultLogLevel = Level.Info;
 
         ~Logger()
         {
@@ -18,18 +18,13 @@ namespace DedicatedServer.Util
             writer = new StreamWriter(path);
         }
 
-        public void Write(string text, Level? priority = null)
+        public void Write(string text, Level priority)
         {
-            if (priority == null) { priority = defaultLogLevel; }
+            if (priority < defaultLogLevel) return;
 
-            string formattedText = priority?.GetFormatted(text);
+            string formattedText = priority.GetFormatted(text);
 
-            if (priority.Equals(Level.Debug)) { 
-                Console.WriteLine(formattedText);
-                return;
-            }
-
-            writer.WriteLine(priority?.GetFormatted(text));
+            writer.WriteLine(priority.GetFormatted(text));
             writer.Flush();
         }
     }

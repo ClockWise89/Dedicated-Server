@@ -19,16 +19,16 @@ namespace DedicatedServer.Util
         public static String GetFormatted(this Level logLevel, string text)
         {
             string timestamp = GetTimeStamp(DateTime.Now);
+            string logText = timestamp + " ";
+            string logPrefix = "";
             switch (logLevel)
             {
-                case Level.Debug: return timestamp + " " + "DEBUG: " + text;
-                case Level.Verbose: return timestamp + ": " + text;
-                case Level.Info: return timestamp + " " + "INFO: " + text;
-                case Level.Warning: return timestamp + " " + "***** WARNING *****: " + text;
-                case Level.Error: return timestamp + " " + "-+-+-+-+-+-+-+-+- ERROR -+-+-+-+-+-+-+-+-: " + text;
+                case Level.Info: logPrefix = "[ INFO  ] "; break;
+                case Level.Warning: logPrefix = "[WARNING] "; break;
+                case Level.Error: logPrefix = "[ ERROR ] "; break;
             }
 
-            return timestamp + " " + text;
+            return logText + logPrefix + text;
         }
     }
 }
