@@ -8,6 +8,11 @@ namespace DedicatedServer.Util
         private StreamWriter writer;
         private Level defaultLogLevel = Level.Verbose;
 
+        ~Logger()
+        {
+            writer.Close();
+        }
+
         public Logger(string path)
         {
             writer = new StreamWriter(path);
