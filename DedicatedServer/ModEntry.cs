@@ -14,7 +14,7 @@ namespace DedicatedServer
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
-        private Logger log;
+        private Logger log = Logger.Instance;
 
         /*********
         ** Public methods
@@ -24,8 +24,11 @@ namespace DedicatedServer
         public override void Entry(IModHelper helper)
         {
             string logPath = Path.Combine(this.Helper.DirectoryPath, "data", "log.txt");
-            log = new Logger(path: logPath);
+            log.initializeWriter(logPath);
+
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+
+            GameLoopEventHandler handler = new GameLoopEventHandler(helper);
         }
 
 
