@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -12,9 +14,7 @@ namespace DedicatedServer
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
-        private Logger log = new Logger();
-
-
+        private Logger log;
 
         /*********
         ** Public methods
@@ -23,8 +23,9 @@ namespace DedicatedServer
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            string logPath = Path.Combine(this.Helper.DirectoryPath, "data", "log.txt");
+            log = new Logger(path: logPath);
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-            
         }
 
 

@@ -8,9 +8,9 @@ namespace DedicatedServer.Util
         private StreamWriter writer;
         private Level defaultLogLevel = Level.Verbose;
 
-        public Logger()
+        public Logger(string path)
         {
-            writer = new StreamWriter(GetLocalPath());
+            writer = new StreamWriter(path);
         }
 
         public void Write(string text, Level? priority = null)
@@ -26,11 +26,6 @@ namespace DedicatedServer.Util
 
             writer.WriteLine(priority?.GetFormatted(text));
             writer.Flush();
-        }
-
-        private string GetLocalPath()
-        {
-            return Path.Combine((new System.Uri(Assembly.GetExecutingAssembly().CodeBase)).LocalPath.Split(new string[] { "DedicatedServer.dll" }, StringSplitOptions.None)[0], "data\\log.txt");
         }
     }
 }
