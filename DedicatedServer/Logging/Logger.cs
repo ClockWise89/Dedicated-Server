@@ -6,7 +6,7 @@ namespace DedicatedServer.Util
 {   public class Logger
     {
         private StreamWriter writer;
-        private Level defaultLogLevel = Level.Info;
+        private Level defaultLogLevel = Level.Debug;
 
         ~Logger()
         {
