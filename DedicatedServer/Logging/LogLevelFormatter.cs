@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DedicatedServer.Util
 {
-    public enum Level { Debug = 0, Info = 1, Warning = 2, Error = 3 }
+    public enum Level { Debug = 0, Verbose = 1, Info = 2, Warning = 3, Error = 4 }
 
     static class LogLevelFormatter
     {
@@ -22,6 +22,7 @@ namespace DedicatedServer.Util
             switch (logLevel)
             {
                 case Level.Debug: return timestamp + " " + "DEBUG: " + text;
+                case Level.Verbose: return timestamp + ": " + text;
                 case Level.Info: return timestamp + " " + "INFO: " + text;
                 case Level.Warning: return timestamp + " " + "***** WARNING *****: " + text;
                 case Level.Error: return timestamp + " " + "-+-+-+-+-+-+-+-+- ERROR -+-+-+-+-+-+-+-+-: " + text;

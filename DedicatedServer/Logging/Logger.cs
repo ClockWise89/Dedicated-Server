@@ -6,22 +6,25 @@ namespace DedicatedServer.Util
 {   public class Logger
     {
         private StreamWriter writer;
+        private Level defaultLogLevel = Level.Verbose;
 
         public Logger()
         {
             writer = new StreamWriter(GetLocalPath());
         }
 
-        public void Write(string text, Level priority)
+        public void Write(string text, Level? priority = null)
         {
-            string formattedText = priority.GetFormatted(text);
+            if (priority == null) { priority = defaultLogLevel; }
+
+            string formattedText = priority?.GetFormatted(text);
 
             if (priority.Equals(Level.Debug)) { 
                 Console.WriteLine(formattedText);
                 return;
             }
 
-            writer.WriteLine(priority.GetFormatted(text));
+            writer.WriteLine(priority?.GetFormatted(text));
             writer.Flush();
         }
 

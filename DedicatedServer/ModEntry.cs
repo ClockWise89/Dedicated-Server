@@ -15,6 +15,7 @@ namespace DedicatedServer
         private Logger log = new Logger();
 
 
+
         /*********
         ** Public methods
         *********/
@@ -41,7 +42,12 @@ namespace DedicatedServer
 
             // print button presses to the console window
             this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
+            this.log.Write($"{e.Button}");
             this.log.Write($"{e.Button}", Level.Debug);
+            this.log.Write($"{e.Button}", Level.Info);
+            this.log.Write($"{e.Button}", Level.Warning);
+            this.log.Write($"{e.Button}", Level.Error);
+
         }
     }
 }
