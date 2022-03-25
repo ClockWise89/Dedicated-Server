@@ -1,7 +1,7 @@
 ﻿{
   "Author": "ClockWise",
   "Description": "A dedicated server for Stardew Valley",
-  "EntryDll": "dedicatedServer.dll",
+  "EntryDll": "DedicatedServer.dll",
   "MinimumApiVersion": "3.0.0",
   "Name": "DedicatedServer",
   "UniqueID": "ClockWise.DedicatedServer",
