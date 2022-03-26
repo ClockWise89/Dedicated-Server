@@ -36,6 +36,11 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
+            _log.Write($" { Game1.player.Name } pressed { e.Button }", Level.Debug);
+            if (e.Button == GameInfo.Instance._serverState.config.toggleKey)
+            {
+                GameInfo.Instance._serverState.SetIsAutoModeEnabled(!GameInfo.Instance._serverState.GetIsAutoModeEnabled());
+            }
             // ignore if player hasn't loaded a save yet
             // if (!Context.IsWorldReady)
             //    return;

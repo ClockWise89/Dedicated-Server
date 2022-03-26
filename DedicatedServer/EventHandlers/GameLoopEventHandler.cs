@@ -7,12 +7,14 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using DedicatedServer.Util;
 
 namespace DedicatedServer.EventHandlers
 {
     internal class GameLoopEventHandler
     {
         private IModHelper _modHelper;
+        private Logger _log = Logger.Instance;
 
         public GameLoopEventHandler(IModHelper helper)
         {
@@ -43,6 +45,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
+            _log.Write($"OnSaveLoaded event received", Level.Debug);
             // Do stuff 
         }
 
@@ -54,7 +57,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnSaving(object sender, SavingEventArgs e)
         {
-
+            _log.Write($"OnSaving event received", Level.Debug);
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
-           
+           // _log.Write($"OnOneSecondUpdateTicked event received", Level.Debug);
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
-
+            _log.Write($"OnTimeChanged event received", Level.Debug);
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
-
+           // _log.Write($"OnUpdateTicked event received", Level.Debug);
         }
     }
 }

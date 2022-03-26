@@ -7,14 +7,19 @@ namespace DedicatedServer.Util
 {  
     public sealed class Logger
     {
-        private StreamWriter writer;
+        private StreamWriter _writer;
+        private IMonitor _monitor;
+
         private Level defaultLogLevel = Level.Debug;
 
-        private Logger()
-        {
-        }
+        private Logger() { }
 
-        public void initializeWriter(string path) { writer = new StreamWriter(path); }
+        public void initializeWriter(string path, IMonitor monitor = null) {
+            _writer = new StreamWriter(path);
+            _monitor = monitor;
+
+            Write("Initializing Logger...", Level.Debug);
+        }
 
         public void Write(string text, Level priority)
         {
@@ -22,8 +27,12 @@ namespace DedicatedServer.Util
 
             string formattedText = priority.GetFormatted(text);
 
-            writer.WriteLine(priority.GetFormatted(text));
-            writer.Flush();
+            _writer.WriteLine(priority.GetFormatted(text));
+            if (_monitor != null)
+                _monitor.Log(priority.GetFormatted(text), LogLevel.Debug);
+ 
+
+            _writer.Flush();
         }
 
         public static Logger Instance { get { return Nested.instance; } }

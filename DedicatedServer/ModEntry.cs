@@ -3,12 +3,10 @@ using System.IO;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using DedicatedServer.Util;
 using DedicatedServer.EventHandlers;
-
 
 namespace DedicatedServer
 {
@@ -27,7 +25,9 @@ namespace DedicatedServer
         public override void Entry(IModHelper helper)
         {
             string logPath = Path.Combine(this.Helper.DirectoryPath, "data", "log.txt");
-            _log.initializeWriter(logPath);
+            _log.initializeWriter(logPath, this.Monitor);
+
+            _log.Write("Setting up EventHandlers...", Level.Debug);
 
             _gameLoopHandler = new GameLoopEventHandler(helper);
             _inputHandler = new InputEventHandler(helper, this.Monitor);
