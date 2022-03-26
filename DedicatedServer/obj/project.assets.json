@@ -1962,31 +1962,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Christopher\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/christopher/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Christopher\\Documents\\Projects\\Dedicated-Server\\DedicatedServer\\DedicatedServer.csproj",
+      "projectUniqueName": "/Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/DedicatedServer.csproj",
       "projectName": "DedicatedServer",
-      "projectPath": "C:\\Users\\Christopher\\Documents\\Projects\\Dedicated-Server\\DedicatedServer\\DedicatedServer.csproj",
-      "packagesPath": "C:\\Users\\Christopher\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Christopher\\Documents\\Projects\\Dedicated-Server\\DedicatedServer\\obj\\",
+      "projectPath": "/Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/DedicatedServer.csproj",
+      "packagesPath": "/Users/christopher/.nuget/packages/",
+      "outputPath": "/Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Christopher\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/christopher/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2025,7 +2018,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.406/RuntimeIdentifierGraph.json"
       }
     }
   }
