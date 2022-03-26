@@ -11,7 +11,6 @@ C:/Users/Christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/Deb
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/bin/Debug/net5.0/DedicatedServer.deps.json
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/bin/Debug/net5.0/DedicatedServer.dll
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/bin/Debug/net5.0/DedicatedServer.pdb
-/Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/Debug/net5.0/DedicatedServer.csproj.AssemblyReference.cache
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/Debug/net5.0/DedicatedServer.GeneratedMSBuildEditorConfig.editorconfig
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/Debug/net5.0/DedicatedServer.AssemblyInfoInputs.cache
 /Users/christopher/Documents/Projects/Dedicated-Server/DedicatedServer/obj/Debug/net5.0/DedicatedServer.AssemblyInfo.cs

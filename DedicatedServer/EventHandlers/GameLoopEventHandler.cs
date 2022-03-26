@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewModdingAPI.Utilities;
+using StardewValley;
 
-namespace DedicatedServer
+namespace DedicatedServer.EventHandlers
 {
     internal class GameLoopEventHandler
     {
         private IModHelper _modHelper;
+
         public GameLoopEventHandler(IModHelper helper)
         {
             _modHelper = helper;
@@ -40,7 +43,7 @@ namespace DedicatedServer
         /// <param name="e">The event data.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            // Do stuff
+            // Do stuff 
         }
 
         /// <summary>

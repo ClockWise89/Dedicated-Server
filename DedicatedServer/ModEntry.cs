@@ -7,6 +7,7 @@ using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using DedicatedServer.Util;
+using DedicatedServer.EventHandlers;
 
 
 namespace DedicatedServer
@@ -14,7 +15,9 @@ namespace DedicatedServer
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
-        private Logger log = Logger.Instance;
+        private Logger _log = Logger.Instance;
+        private GameLoopEventHandler _gameLoopHandler;
+        private InputEventHandler _inputHandler;
 
         /*********
         ** Public methods
@@ -24,35 +27,10 @@ namespace DedicatedServer
         public override void Entry(IModHelper helper)
         {
             string logPath = Path.Combine(this.Helper.DirectoryPath, "data", "log.txt");
-            log.initializeWriter(logPath);
+            _log.initializeWriter(logPath);
 
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-
-            GameLoopEventHandler handler = new GameLoopEventHandler(helper);
-        }
-
-
-        /*********
-        ** Private methods
-        *********/
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event data.</param>
-        private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
-        {
-            // ignore if player hasn't loaded a save yet
-           // if (!Context.IsWorldReady)
-            //    return;
-
-            // print button presses to the console window
-            this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
-       
-            this.log.Write($"{e.Button}", Level.Debug);
-            this.log.Write($"{e.Button}", Level.Verbose);
-            this.log.Write($"{e.Button}", Level.Info);
-            this.log.Write($"{e.Button}", Level.Warning);
-            this.log.Write($"{e.Button}", Level.Error);
-
+            _gameLoopHandler = new GameLoopEventHandler(helper);
+            _inputHandler = new InputEventHandler(helper, this.Monitor);
         }
     }
 }

@@ -8,4 +8,10 @@
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="EventHandlers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventHandlers\" />
+  </ItemGroup>
 </Project>
