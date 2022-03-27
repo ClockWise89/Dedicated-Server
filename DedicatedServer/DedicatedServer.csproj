@@ -11,7 +11,4 @@
   <ItemGroup>
     <None Remove="EventHandlers\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EventHandlers\" />
-  </ItemGroup>
 </Project>

@@ -8,15 +8,12 @@ namespace DedicatedServer.Util
     public sealed class Logger
     {
         private StreamWriter _writer;
-        private IMonitor _monitor;
-
         private Level defaultLogLevel = Level.Debug;
 
         private Logger() { }
 
-        public void initializeWriter(string path, IMonitor monitor = null) {
+        public void initializeWriter(string path) {
             _writer = new StreamWriter(path);
-            _monitor = monitor;
 
             Write("Initializing Logger...", Level.Debug);
         }
@@ -28,9 +25,7 @@ namespace DedicatedServer.Util
             string formattedText = priority.GetFormatted(text);
 
             _writer.WriteLine(priority.GetFormatted(text));
-            if (_monitor != null)
-                _monitor.Log(priority.GetFormatted(text), LogLevel.Debug);
- 
+            ModEntry.monitor.Log(priority.GetFormatted(text), LogLevel.Debug);
 
             _writer.Flush();
         }

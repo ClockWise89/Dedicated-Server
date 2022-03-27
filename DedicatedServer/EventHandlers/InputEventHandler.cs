@@ -13,20 +13,15 @@ namespace DedicatedServer.EventHandlers
 {
     internal class InputEventHandler
     {
-        private IModHelper _modHelper;
-        private IMonitor _monitor;
-        private Logger _log = Logger.Instance;
 
-        public InputEventHandler(IModHelper helper, IMonitor monitor)
+        public InputEventHandler()
         {
-            _modHelper = helper;
-            _monitor = monitor;
             // Register for Input events
             RegisterForEvents();
         }
         private void RegisterForEvents()
         {
-            _modHelper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            ModEntry.helper.Events.Input.ButtonPressed += this.OnButtonPressed;
         }
 
         /// <summary>
@@ -36,10 +31,13 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            _log.Write($" { Game1.player.Name } pressed { e.Button }", Level.Debug);
-            if (e.Button == GameInfo.Instance._serverState.config.toggleKey)
+            if (!Context.IsWorldReady)
+                return;
+
+            ModEntry.log.Write($" { Game1.player.Name } pressed { e.Button }", Level.Debug);
+            if (e.Button == ServerHandler.config.toggleKey)
             {
-                GameInfo.Instance._serverState.SetIsAutoModeEnabled(!GameInfo.Instance._serverState.GetIsAutoModeEnabled());
+                ServerHandler.Instance.ToggleAutoMode();
             }
             // ignore if player hasn't loaded a save yet
             // if (!Context.IsWorldReady)
