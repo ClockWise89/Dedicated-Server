@@ -7,27 +7,25 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
+using DedicatedServer.Util;
 
 namespace DedicatedServer.EventHandlers
 {
     internal class GameLoopEventHandler
     {
-        private IModHelper _modHelper;
 
-        public GameLoopEventHandler(IModHelper helper)
+        public GameLoopEventHandler()
         {
-            _modHelper = helper;
-
             // Register for Game loop events
             RegisterForEvents();
         }
         private void RegisterForEvents()
         {
-            _modHelper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
-            _modHelper.Events.GameLoop.Saving += this.OnSaving;
-            _modHelper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
-            _modHelper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
-            _modHelper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
+            ModEntry.helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+            ModEntry.helper.Events.GameLoop.Saving += this.OnSaving;
+            ModEntry.helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
+            ModEntry.helper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
+            ModEntry.helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
         }
 
         /*********
@@ -43,6 +41,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
+            ModEntry.log.Write($"OnSaveLoaded event received", Level.Debug);
             // Do stuff 
         }
 
@@ -54,7 +53,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnSaving(object sender, SavingEventArgs e)
         {
-
+            ModEntry.log.Write($"OnSaving event received", Level.Debug);
         }
 
         /// <summary>
@@ -64,7 +63,11 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
-           
+            if (ServerHandler.Instance._serverState.GetIsPendingBedWarp())
+                ServerHandler.Instance.WarpPlayerToBed();
+            else if (ServerHandler.Instance._serverState.GetIsPendingEndDay())
+                ServerHandler.Instance.EndDay();
+            // ModEntry.log.Write($"OnOneSecondUpdateTicked event received", Level.Debug);
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnTimeChanged(object sender, TimeChangedEventArgs e)
         {
-
+            ModEntry.log.Write($"OnTimeChanged event received", Level.Debug);
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
-
+            // ModEntry.log.Write($"OnUpdateTicked event received", Level.Debug);
         }
     }
 }
