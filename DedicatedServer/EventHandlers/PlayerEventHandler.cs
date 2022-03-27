@@ -30,9 +30,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnPlayerWarped(object sender, WarpedEventArgs e)
         {
-            ModEntry.log.Write($" { Game1.player.Name } warped from { e.OldLocation.Name } to { e.NewLocation.Name }", Level.Debug);
-            if (!Context.IsWorldReady)
-                return;       
+            ModEntry.log.Write($" { Game1.player.Name } warped from { e.OldLocation.Name } to { e.NewLocation.Name }", Level.Debug);     
         }
     }
 }
