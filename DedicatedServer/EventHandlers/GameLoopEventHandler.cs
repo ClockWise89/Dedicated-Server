@@ -22,6 +22,7 @@ namespace DedicatedServer.EventHandlers
         private void RegisterForEvents()
         {
             ModEntry.helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
+            ModEntry.helper.Events.GameLoop.Saved += this.OnSaved;
             ModEntry.helper.Events.GameLoop.Saving += this.OnSaving;
             ModEntry.helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
             ModEntry.helper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
@@ -54,6 +55,15 @@ namespace DedicatedServer.EventHandlers
         private void OnSaving(object sender, SavingEventArgs e)
         {
             ModEntry.log.Write($"OnSaving event received", Level.Debug);
+            if (ServerHandler.Instance._serverState.IsAutoModeEnabled)
+                ServerHandler.Instance.WarpPlayerToBed();
+        }
+
+        private void OnSaved(object sender, SavedEventArgs e)
+        {
+            ModEntry.log.Write($"OnSaved event received", Level.Debug);
+            if (ServerHandler.Instance._serverState.IsAutoModeEnabled)
+                ServerHandler.Instance.WarpPlayerToBed();
         }
 
         /// <summary>
@@ -63,11 +73,7 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
-            if (ServerHandler.Instance._serverState.GetIsPendingBedWarp())
-                ServerHandler.Instance.WarpPlayerToBed();
-            else if (ServerHandler.Instance._serverState.GetIsPendingEndDay())
-                ServerHandler.Instance.EndDay();
-            // ModEntry.log.Write($"OnOneSecondUpdateTicked event received", Level.Debug);
+            ServerHandler.Instance.NextAction();
         }
 
         /// <summary>
