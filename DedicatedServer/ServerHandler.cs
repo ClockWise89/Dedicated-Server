@@ -38,6 +38,7 @@ namespace DedicatedServer
         {
             ModEntry.log.Write($" Auto Mode turned on!", Level.Debug);
             _serverState.IsAutoModeEnabled = true;
+            _serverState.EndingDayCountdown = config.endingDayInterval;
             GoToSleep();
 
             
@@ -47,29 +48,45 @@ namespace DedicatedServer
             ModEntry.log.Write($" Attempting to turn off Audo Mode...", Level.Debug);
 
             _serverState.IsAutoModeEnabled = false;
-
+            _serverState.EndingDayCountdown = config.endingDayInterval;
             ModEntry.log.Write($" Auto Mode turned off!", Level.Debug);
         }
 
         public void NextAction()
         {
-            ModEntry.log.Write($"Evaluating next step...", Level.Debug);
             if (!_serverState.IsAutoModeEnabled)
             {
-                ModEntry.log.Write($"AutoMode is disabled - exiting step.", Level.Debug);
                 return;
             }
+
+            ModEntry.log.Write($"Evaluating next step...", Level.Debug);
 
             if (_serverState.IsPendingGoingToSleep())
             {
                 ModEntry.log.Write($"Pending going to sleep...", Level.Debug);
                 ContinueGoToSleep();
             }
-            else
+            else if (_serverState.EndingDayCountdown == 0)
             {
+                if (_serverState.HasInvokedSleep)
+                {
+                    ModEntry.log.Write($"Invoke sleep is already pending...", Level.Debug);
+                    return;
+                }
+
                 ModEntry.log.Write($"Initiating going to sleep...", Level.Debug);
                 GoToSleep();
+            } else
+            {
+                ModEntry.log.Write($"Invoking sleep in...{ _serverState.EndingDayCountdown }", Level.Debug);
+                _serverState.EndingDayCountdown -= 1;
             }
+        }
+
+        public void OnSaved()
+        {
+            _serverState.EndingDayCountdown = config.endingDayInterval;
+            _serverState.HasInvokedSleep = false;
         }
 
         public void ContinueGoToSleep()
@@ -129,6 +146,7 @@ namespace DedicatedServer
             // Invoke night
             ModEntry.helper.Reflection.GetMethod(Game1.currentLocation, "startSleep").Invoke();
             _serverState.IsPendingEndingDay = false;
+            _serverState.HasInvokedSleep = true;
         }
     }
 }

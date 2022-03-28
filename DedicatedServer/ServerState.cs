@@ -12,6 +12,8 @@ namespace DedicatedServer
         private bool isAutoModeEnabled;
         private bool isPendingBedWarp;
         private bool isPendingEndingDay;
+        private int endingDayCountdown;
+        private bool hasInvokedSleep;
 
         public bool IsAutoModeEnabled { 
             get { 
@@ -55,6 +57,31 @@ namespace DedicatedServer
         internal bool IsPendingGoingToSleep()
         {
             return isPendingBedWarp || isPendingEndingDay;
+        }
+
+
+        public int EndingDayCountdown
+        {
+            get 
+            {
+                return endingDayCountdown;
+            }
+            set
+            {
+                endingDayCountdown = value;
+            }
+        }
+
+        public bool HasInvokedSleep
+        {
+            get
+            {
+                return hasInvokedSleep;
+            }
+            set
+            {
+                hasInvokedSleep = value;
+            }
         }
     }
 }
