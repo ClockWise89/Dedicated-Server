@@ -55,15 +55,12 @@ namespace DedicatedServer.EventHandlers
         private void OnSaving(object sender, SavingEventArgs e)
         {
             ModEntry.log.Write($"OnSaving event received", Level.Debug);
-            
         }
 
         private void OnSaved(object sender, SavedEventArgs e)
         {
             ModEntry.log.Write($"OnSaved event received", Level.Debug);
             ServerHandler.Instance.OnSaved();
-            //            if (ServerHandler.Instance._serverState.IsAutoModeEnabled)
-            //              ServerHandler.Instance.WarpPlayerToBed();
         }
 
         /// <summary>

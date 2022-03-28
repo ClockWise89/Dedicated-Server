@@ -40,8 +40,6 @@ namespace DedicatedServer
             _serverState.IsAutoModeEnabled = true;
             _serverState.EndingDayCountdown = config.endingDayInterval;
             GoToSleep();
-
-            
         }
 
         internal void TurnOffAutoMode() {
