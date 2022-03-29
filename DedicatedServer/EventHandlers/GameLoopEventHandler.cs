@@ -60,7 +60,7 @@ namespace DedicatedServer.EventHandlers
         private void OnSaved(object sender, SavedEventArgs e)
         {
             ModEntry.log.Write($"OnSaved event received", Level.Debug);
-            ServerHandler.Instance.OnSaved();
+           // ServerHandler.Instance.OnSaved();
         }
 
         /// <summary>
@@ -70,7 +70,10 @@ namespace DedicatedServer.EventHandlers
         /// <param name="e">The event data.</param>
         private void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
         {
-            ServerHandler.Instance.NextAction();
+            if (!Context.IsWorldReady)
+                return;
+
+            ServerHandler.Instance.Update();
         }
 
         /// <summary>

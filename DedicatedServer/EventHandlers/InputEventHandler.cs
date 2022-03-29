@@ -36,10 +36,7 @@ namespace DedicatedServer.EventHandlers
 
             if (e.Button == ServerHandler.config.toggleKey)
             {
-                if (ServerHandler.Instance._serverState.IsAutoModeEnabled)
-                    ServerHandler.Instance.TurnOffAutoMode();
-                else
-                    ServerHandler.Instance.TurnOnAutoMode();
+                ServerHandler.Instance.ToggleKeyPressed();
             }
 
             ModEntry.log.Write($" { Game1.player.Name } pressed { e.Button }", Level.Debug);
