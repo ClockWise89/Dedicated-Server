@@ -16,8 +16,8 @@ namespace DedicatedServer
 
     public sealed class ServerHandler
     {
-        internal static ServerConfig config = new ServerConfig();
-        private GoingToSleepContext _goingToSleepContext = new(new IdleState());
+        private static ServerConfig config = new();
+        private readonly SleepRoutineContext _sleepRoutineContext = new(new IdleState());
 
         private int sleepCooldown = config.endingDayInterval;
 
@@ -25,12 +25,14 @@ namespace DedicatedServer
 
         public static ServerHandler Instance { get { return Nested.instance; } }
 
+        internal static ServerConfig Config { get => config; set => config = value; }
+
         private class Nested
         {
             // Explicit static constructor to tell C# compiler
             // not to mark type as beforefieldinit
             static Nested() { }
-            internal static readonly ServerHandler instance = new ServerHandler();
+            internal static readonly ServerHandler instance = new();
         }
         private ServerHandler()
         {
@@ -43,17 +45,17 @@ namespace DedicatedServer
             if (!serverIsOn)
                 return;
 
-            _goingToSleepContext.Update();
+            _sleepRoutineContext.Update();
             if (ShouldGoToSleep())
             {
-                _goingToSleepContext.TransitionTo(new GoToSleepState());
+                _sleepRoutineContext.TransitionTo(new GoToSleepState());
                 sleepCooldown = config.endingDayInterval;
             }
         }
 
         private bool ShouldGoToSleep()
         {
-            if (_goingToSleepContext.GetCurrentState().GetType() != typeof(IdleState))
+            if (_sleepRoutineContext.GetCurrentState().GetType() != typeof(IdleState))
                 return false;
 
             if (sleepCooldown > 0)
@@ -79,12 +81,12 @@ namespace DedicatedServer
         {
             serverIsOn = true;
             ModEntry.log.Write($" Auto Mode turned on!", Level.Debug);
-            _goingToSleepContext.TransitionTo(new GoToSleepState());
+            _sleepRoutineContext.TransitionTo(new GoToSleepState());
         }
 
         private void TurnOffAutoMode() {
             serverIsOn = false;
-            _goingToSleepContext.TransitionTo(new IdleState());
+            _sleepRoutineContext.TransitionTo(new IdleState());
             ModEntry.log.Write($" Auto Mode turned off!", Level.Debug);
         }
     }
