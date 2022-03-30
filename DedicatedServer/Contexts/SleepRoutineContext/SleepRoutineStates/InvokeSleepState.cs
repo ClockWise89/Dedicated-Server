@@ -8,7 +8,8 @@ namespace DedicatedServer
         public override void Handle()
         {
             InvokeSleep();
-            _context.TransitionTo(new IdleState());
+           // _context.TransitionTo(new IdleState());
+            _context.RoutineFinished();
         }
 
         public void InvokeSleep()
