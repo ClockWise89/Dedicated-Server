@@ -16,7 +16,7 @@ namespace DedicatedServer
 
     public sealed class ServerHandler
     {
-        private static ServerConfig config = new();
+        internal static ServerConfig config = new();
         private readonly SleepRoutineContext _sleepRoutineContext = new(new IdleState());
 
         private int sleepCooldown = config.endingDayInterval;
