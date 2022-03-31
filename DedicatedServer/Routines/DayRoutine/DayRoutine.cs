@@ -2,6 +2,10 @@
 
 namespace DedicatedServer
 {
+    /// <summary>
+    ///  Encapsulates the steps the user needs to perform during the day. It consists of various different states which encapsulates certain
+    ///  smaller game logic tasks, and which upon completion transitions to the next state in the Routine.
+    /// </summary>
     internal class DayRoutine : IRoutine
     {
         private AutoPilotGameLoopContext _context;

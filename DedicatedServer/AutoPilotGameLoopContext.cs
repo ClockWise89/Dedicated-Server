@@ -3,6 +3,9 @@ using DedicatedServer.Util;
 
 namespace DedicatedServer
 {
+    /// <summary>
+    ///  This class handles the sequence of the AutoPilotLoop, i.e. the order in which certain routines should be performed.
+    /// </summary>
     public class AutoPilotGameLoopContext
     {
         private IRoutine _currentRoutine;
