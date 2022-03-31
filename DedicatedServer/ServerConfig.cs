@@ -7,9 +7,9 @@ using StardewModdingAPI;
 
 namespace DedicatedServer
 {
-    internal class ServerConfig
+    internal static class ServerConfig
     {
-        public SButton toggleKey { get; set; } = SButton.C;
-        public int endingDayInterval { get; set; } = 5; // 5 seconds between each ending day
+        public static SButton ToggleKey { get; set; } = SButton.C;
+        public static int RoutineCycleCooldown { get; set; } = 5; // 5 seconds between each re-iteration of game cycle
     }
 }

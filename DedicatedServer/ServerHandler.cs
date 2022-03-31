@@ -13,19 +13,12 @@ using Microsoft.Xna.Framework;
 
 namespace DedicatedServer
 {
-
     public sealed class ServerHandler
     {
-        internal static ServerConfig config = new();
-        private readonly SleepRoutineContext _sleepRoutineContext = new(new IdleState());
-
-        private int sleepCooldown = config.endingDayInterval;
-
+        private readonly AutoPilotGameLoopContext _routineContext;
         private bool serverIsOn = false;
 
         public static ServerHandler Instance { get { return Nested.instance; } }
-
-        internal static ServerConfig Config { get => config; set => config = value; }
 
         private class Nested
         {
@@ -36,8 +29,13 @@ namespace DedicatedServer
         }
         private ServerHandler()
         {
-            // Should have it's own state on what to do next. ReadyForSleep? We are not until we have saved! At a festvial should be a state which should delay sleep as well. In a dialogue as well? reading mailbox as well?
-            // The Server should have a path of things to do before invoking the going to sleep states. At Wake up -> Warp outside -> Click through dialogues -> Check mailbox -> check game events (festivals) -> All else is done -> GoToSleep
+            List<IRoutine> tempList = new() { new DayRoutine(new GoOutsideState()), new SleepRoutine(new GoToSleepState()) };
+            _routineContext = new AutoPilotGameLoopContext(tempList);
+        }
+
+        public void OnSaved()
+        {
+            _routineContext.ResetQueueBackToSequence();
         }
 
         public void Update()
@@ -45,28 +43,7 @@ namespace DedicatedServer
             if (!serverIsOn)
                 return;
 
-            _sleepRoutineContext.Update();
-            if (ShouldGoToSleep())
-            {
-                _sleepRoutineContext.TransitionTo(new GoToSleepState());
-                sleepCooldown = config.endingDayInterval;
-            }
-        }
-
-        private bool ShouldGoToSleep()
-        {
-            if (_sleepRoutineContext.GetCurrentState().GetType() != typeof(IdleState))
-                return false;
-
-            if (sleepCooldown > 0)
-            {
-                // TODO: This will update even before the save has been executed. Need to listen to OnSaved before initiating this countdown.
-                ModEntry.log.Write($"Next ending day in { sleepCooldown } seconds...", Level.Debug);
-                sleepCooldown--;
-                return false;
-            }
-                
-            return true;
+            _routineContext.Update();
         }
 
         public void ToggleKeyPressed()
@@ -81,12 +58,11 @@ namespace DedicatedServer
         {
             serverIsOn = true;
             ModEntry.log.Write($" Auto Mode turned on!", Level.Debug);
-            _sleepRoutineContext.TransitionTo(new GoToSleepState());
         }
 
         private void TurnOffAutoMode() {
             serverIsOn = false;
-            _sleepRoutineContext.TransitionTo(new IdleState());
+            _routineContext.ClearQueue();
             ModEntry.log.Write($" Auto Mode turned off!", Level.Debug);
         }
     }

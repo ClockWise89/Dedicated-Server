@@ -60,7 +60,7 @@ namespace DedicatedServer.EventHandlers
         private void OnSaved(object sender, SavedEventArgs e)
         {
             ModEntry.log.Write($"OnSaved event received", Level.Debug);
-           // ServerHandler.Instance.OnSaved();
+            ServerHandler.Instance.OnSaved();
         }
 
         /// <summary>

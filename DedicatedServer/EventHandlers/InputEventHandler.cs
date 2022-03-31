@@ -34,7 +34,7 @@ namespace DedicatedServer.EventHandlers
             if (!Context.IsWorldReady)
                 return;
 
-            if (e.Button == ServerHandler.config.toggleKey)
+            if (e.Button == ServerConfig.ToggleKey)
             {
                 ServerHandler.Instance.ToggleKeyPressed();
             }
