@@ -18,3 +18,10 @@ DedicatedServer/bin/Debug/net5.0/DedicatedServer.dll
 DedicatedServer/bin/Debug/net5.0/DedicatedServer.pdb
 
 .vs/DedicatedServer/v17/
+/DedicatedServer/obj/project.nuget.cache
+/DedicatedServer/obj/project.assets.json
+/DedicatedServer/obj/DedicatedServer.csproj.nuget.g.targets
+/DedicatedServer/obj/DedicatedServer.csproj.nuget.g.props
+/DedicatedServer/obj/DedicatedServer.csproj.nuget.dgspec.json
+/DedicatedServer/obj/Debug/net5.0/DedicatedServer.csproj.AssemblyReference.cache
+/.vs/DedicatedServer/xs
